@@ -253,7 +253,7 @@ void  NTPClient::processDNSTimeout () {
         onSyncEvent (invalidAddress);
 }
 
-void ICACHE_RAM_ATTR NTPClient::s_processDNSTimeout (void* arg) {
+void IRAM_ATTR NTPClient::s_processDNSTimeout (void* arg) {
     reinterpret_cast<NTPClient*>(arg)->processDNSTimeout ();
 }
 #endif
@@ -334,7 +334,7 @@ time_t NTPClient::getTime () {
 
 }
 
-void dumpNTPPacket (byte *data, size_t length) {
+void dumpNTPPacket (uint8_t *data, size_t length) {
     //byte *data = packet.data ();
     //size_t length = packet.length ();
 
@@ -426,7 +426,7 @@ void NTPClient::processPacket (AsyncUDPPacket& packet) {
     DEBUGLOG ("\n");
 }
 
-void ICACHE_RAM_ATTR NTPClient::processRequestTimeout () {
+void IRAM_ATTR NTPClient::processRequestTimeout () {
     status = unsyncd;
     //timer1_disable ();
     responseTimer.detach ();
@@ -435,7 +435,7 @@ void ICACHE_RAM_ATTR NTPClient::processRequestTimeout () {
         onSyncEvent (noResponse);
 }
 
-void ICACHE_RAM_ATTR NTPClient::s_processRequestTimeout (void* arg) {
+void IRAM_ATTR NTPClient::s_processRequestTimeout (void* arg) {
     NTPClient* self = reinterpret_cast<NTPClient*>(arg);
     self->processRequestTimeout ();
 }
@@ -652,7 +652,7 @@ time_t NTPClient::getFirstSync () {
     return _firstSync;
 }
 
-bool NTPClient::summertime (int year, byte month, byte day, byte hour, byte weekday, byte tzHours)
+bool NTPClient::summertime (uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t weekday, uint8_t tzHours)
 // input parameters: "normal time" for year, month, day, hour, weekday and tzHours (0=UTC, 1=MEZ)
 {
     if (DST_ZONE_EU == _dstZone) {

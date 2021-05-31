@@ -475,16 +475,16 @@ protected:
     /**
     * Process internal state in case of a response timeout. If a response comes later is is asumed as non valid.
     */
-    void ICACHE_RAM_ATTR processRequestTimeout ();
+    void IRAM_ATTR processRequestTimeout ();
 
     /**
     * Static method for Ticker argument.
     */
-    static void ICACHE_RAM_ATTR s_processRequestTimeout (void* arg);
+    static void IRAM_ATTR s_processRequestTimeout (void* arg);
 
     static void s_dnsFound (const char *name, const ip_addr_t *ipaddr, void *callback_arg);
     void dnsFound (const ip_addr_t *ipaddr);
-    static void ICACHE_RAM_ATTR s_processDNSTimeout (void* arg);
+    static void IRAM_ATTR s_processDNSTimeout (void* arg);
     void processDNSTimeout ();
 
 #endif
@@ -505,7 +505,7 @@ protected:
     * @param[in] Time zone offset.
     * @param[out] true if date and time are inside summertime period.
     */
-    bool summertime (int year, byte month, byte day, byte hour, byte weekday, byte tzHours);
+    bool summertime (uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t weekday, uint8_t tzHours);
 
     /**
     * Helper function to add leading 0 to hour, minutes or seconds if < 10.
